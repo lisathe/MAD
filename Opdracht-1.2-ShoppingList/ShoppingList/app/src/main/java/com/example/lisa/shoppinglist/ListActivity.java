@@ -81,7 +81,13 @@ public class ListActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (item.getItemId() == R.id.action_bar_menu_delete_all) {
+            //Clears the list
+            items.clear();
 
+            //Tell the adapter that it should reload the data
+            adapter.notifyDataSetChanged();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
