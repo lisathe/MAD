@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -47,8 +48,20 @@ public class ListActivity extends AppCompatActivity {
 
         //Set the newly created adapter as the adapter for the listview
         listView.setAdapter(adapter);
+
+        //Set the listview on item click listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View listItem, int position, long id) {
+                //Get the value of the item that the user clicked on
+                String clickedItem = (String) parent.getItemAtPosition(position);
+
+                //Display a  message to show the user the item he/she clicked on
+                Snackbar.make(parent, "Clicked: " + clickedItem, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
     }
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
