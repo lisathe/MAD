@@ -40,6 +40,11 @@ public class ListActivity extends AppCompatActivity {
         //Create the Array Adapter, give it a layout and a list of values
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
+        //Add some items to the Array list
+        items.add("Strawberry");
+        items.add("Mango");
+        adapter.notifyDataSetChanged();
+
         //Set the newly created adapter as the adapter for the listview
         listView.setAdapter(adapter);
     }
