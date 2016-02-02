@@ -48,8 +48,7 @@ public class ListActivity extends AppCompatActivity {
         //Set the newly created adapter as the adapter for the listview
         listView.setAdapter(adapter);
     }
-
-}
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
