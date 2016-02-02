@@ -8,9 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListActivity extends AppCompatActivity {
+
+    // Adapter and ArrayList
+    private ArrayAdapter<String> adapter;
+    private List<String> items;
+
 
     //Views
     private ListView listView;
@@ -24,7 +33,18 @@ public class ListActivity extends AppCompatActivity {
 
         //Init the views
         listView = (ListView) findViewById(R.id.listView);
+
+        //Create the List of items
+        items = new ArrayList<String>();
+
+        //Create the Array Adapter, give it a layout and a list of values
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+
+        //Set the newly created adapter as the adapter for the listview
+        listView.setAdapter(adapter);
     }
+
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
