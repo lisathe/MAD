@@ -10,15 +10,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.lisa.shoppinglist.ListActivity"
-    tools:showIn="@layout/activity_list">
+    tools:showIn="@layout/activity_list"
+    android:weightSum="1"
+    android:orientation="vertical">
 
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="383dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.57" />
+
 </LinearLayout >
