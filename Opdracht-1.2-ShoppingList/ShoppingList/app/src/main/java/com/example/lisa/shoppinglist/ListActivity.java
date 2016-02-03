@@ -32,7 +32,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        registerForContextMenu(listView);
+
 
         //Init the views
         listView = (ListView) findViewById(R.id.listView);
@@ -62,21 +62,54 @@ public class ListActivity extends AppCompatActivity {
                 Snackbar.make(parent, "Clicked: " + clickedItem, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+        registerForContextMenu(listView);
 
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        //Get the clicked item
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        //Get the name of the clicked item
+        String clickedItem = (String) listView.getItemAtPosition(info.position);
+
         //Inflate the context menu from the resource file
         getMenuInflater().inflate(R.menu.context_menu, menu);
 
+        //Find the delete MenuItem by its ID
+        MenuItem deleteButton = menu.findItem(R.id.context_menu_delete_item);
+
+        //Get the title from the menu button
+        String originalTitle = deleteButton.getTitle().toString();
+
+        //Make a new title combining the original title and the name of the clicked list item
+        deleteButton.setTitle(originalTitle + " '" + clickedItem + "'?");
+
+        //Let Android do its magic
         super.onCreateContextMenu(menu, view, menuInfo);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //Retrieve info about the long pressed list item
+        AdapterView.AdapterContextMenuInfo itemInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == R.id.context_menu_delete_item) {
+            //Remove the item from the list
+            items.remove(itemInfo.position);
+            //Update the adapter to reflect the list change
+            adapter.notifyDataSetChanged();
+            return true;
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     @Override
