@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Add item"
         android:id="@+id/button"
+        android:onClick="addListItem"
         android:layout_gravity="bottom|right"
        />
 

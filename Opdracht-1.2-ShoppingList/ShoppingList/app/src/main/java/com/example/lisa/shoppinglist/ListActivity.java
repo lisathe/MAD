@@ -5,12 +5,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,10 +23,12 @@ public class ListActivity extends AppCompatActivity {
     // Adapter and ArrayList
     private ArrayAdapter<String> adapter;
     private List<String> items;
+    private EditText addItemEditText;
 
 
     //Views
     private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class ListActivity extends AppCompatActivity {
 
         //Init the views
         listView = (ListView) findViewById(R.id.listView);
+        addItemEditText = (EditText) findViewById(R.id.editText);
 
         //Create the List of items
         items = new ArrayList<String>();
@@ -65,7 +70,26 @@ public class ListActivity extends AppCompatActivity {
         registerForContextMenu(listView);
 
     }
+    public void addListItem(View view) {
+        //Get the user text from the textfield
+        String text = addItemEditText.getText().toString();
 
+        //Check if some text has been added
+        if (!(TextUtils.isEmpty(text))) {
+            //Add the text to the adapter
+            items.add(text);
+
+            //Notify the adapter that the action_bar_menu of data has changed and the view should be updated
+            adapter.notifyDataSetChanged();
+
+            //Clear the EditText for the next item
+            addItemEditText.setText("");
+        } else {
+            //Show a message to the user if the textfield is empty
+            Snackbar.make(view, "Please enter some text in the textfield", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+        }
+    }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
         //Get the clicked item
