@@ -1,5 +1,7 @@
 package com.example.lisa.studentportal;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -47,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<ListItem>(this, android.R.layout.simple_list_item_1, items);
         //Set the newly created adapter as the adapter for the listview
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View listItem, int position, long id) {
+                ListItem clickedItem = (ListItem) parent.getItemAtPosition(position);
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(clickedItem.getUrl()));
+                startActivity(myIntent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
