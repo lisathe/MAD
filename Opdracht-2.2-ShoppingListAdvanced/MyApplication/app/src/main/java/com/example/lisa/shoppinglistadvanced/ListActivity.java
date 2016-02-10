@@ -10,10 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListActivity extends AppCompatActivity {
 
     //Views
     private ListView listView;
+    private ItemAdapter adapter;
+    private List<ListItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,16 @@ public class ListActivity extends AppCompatActivity {
 
         //Init views
         listView = (ListView) findViewById(R.id.listView);
+        //Create list of items
+        items = new ArrayList<ListItem>();
+
+        adapter = new ItemAdapter(this,R.layout.row_item,items);
+
+        items.add(new ListItem("Apple", "Granny Smith", R.mipmap.ic_launcher));
+        items.add(new ListItem("Banana", "Chiquita banana", R.mipmap.ic_launcher));
+        adapter.notifyDataSetChanged();
+
+        listView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
