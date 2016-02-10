@@ -39,8 +39,11 @@ public class ListActivity extends AppCompatActivity {
         registerForContextMenu(listView);
         adapter = new ItemAdapter(this,R.layout.row_item,items);
 
-        items.add(new ListItem("Apple", "Granny Smith", R.mipmap.ic_launcher));
-        items.add(new ListItem("Banana", "Chiquita banana", R.mipmap.ic_launcher));
+        for(int i=0; i<20;i++) {
+            items.add(new ListItem("Apple", "Granny Smith", R.mipmap.ic_launcher));
+            items.add(new ListItem("Banana", "Chiquita banana", R.mipmap.ic_launcher));
+        }
+
         adapter.notifyDataSetChanged();
 
         listView.setAdapter(adapter);
