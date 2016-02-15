@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -59,6 +60,13 @@ public class AnimalListFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listview);
         adapter = new ListAdapter(getActivity(), R.layout.animal_list_item, listModels);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View listItem, int position, long id) {
+                ((FragmentActivity) getActivity()).showDetail(position);
+            }
+        });
 
         return view;
 

@@ -19,4 +19,10 @@ public class FragmentActivity extends AppCompatActivity {
                 .commit();
 
     }
+
+    public void showDetail(int pageId) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.animal_picture, AnimalFragment.newInstance(imageIds[pageId]))
+                .commit();
+    }
 }
