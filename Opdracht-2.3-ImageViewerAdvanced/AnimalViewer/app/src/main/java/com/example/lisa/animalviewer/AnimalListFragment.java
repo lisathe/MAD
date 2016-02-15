@@ -28,34 +28,11 @@ public class AnimalListFragment extends Fragment {
     private ListView listView;
     private ListModel listModels;
 
-    public AnimalListFragment newInstance(int[] imageIds, String[] nameStrings) {
-        Bundle args = new Bundle();
-        args.putIntArray(IMAGES, imageIds);
-        args.putStringArray(NAMES, nameStrings);
-        AnimalListFragment fragment = new AnimalListFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public AnimalListFragment() {
 
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_animal_list, container, false);
-        List<ListModel> listModels = new ArrayList<>();
-
-        for (int i = 0; i < imageIds.length; i++) {
-            listModels.add(new ListModel(imageIds[i], animalNames[i]));
-        }
-        listView = (ListView) view.findViewById(R.id.listview);
-        adapter = new ListAdapter(getActivity(), R.layout.animal_list_item, listModels);
-        listView.setAdapter(adapter);
-
-        return view;
-
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,5 +43,33 @@ public class AnimalListFragment extends Fragment {
 
 
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_animal_list, container, false);
+        List<ListModel> listModels = new ArrayList<>();
+
+        int imageSize = imageIds.length;
+        for (int i = 0; i < imageSize; i++) {
+            listModels.add(new ListModel(imageIds[i], animalNames[i]));
+        }
+        listView = (ListView) view.findViewById(R.id.listview);
+        adapter = new ListAdapter(getActivity(), R.layout.animal_list_item, listModels);
+        listView.setAdapter(adapter);
+
+        return view;
+
+    }
+    public static AnimalListFragment newInstance(int[] imageIds, String[] nameStrings) {
+        Bundle args = new Bundle();
+        args.putIntArray(IMAGES, imageIds);
+        args.putStringArray(NAMES, nameStrings);
+        AnimalListFragment fragment = new AnimalListFragment();
+        fragment.setArguments(args);
+        return fragment;
+
     }
 }

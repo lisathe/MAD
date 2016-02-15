@@ -5,8 +5,10 @@ package com.example.lisa.animalviewer;
  */
 public class ListModel {
 
-    public ListModel(int imageId, String imageText) {}
-
+    public ListModel(int imageId, String imageText) {
+        this.imageId = imageId;
+        this.imageText = imageText;
+    }
 
     int imageId;
     String imageText;

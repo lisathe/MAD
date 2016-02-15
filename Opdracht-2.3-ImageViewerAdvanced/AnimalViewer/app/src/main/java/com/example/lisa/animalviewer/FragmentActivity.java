@@ -12,5 +12,11 @@ public class FragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
         String[] animalNames = getResources().getStringArray(R.array.image_title);
+
+        AnimalListFragment animalListFragment = AnimalListFragment.newInstance(imageIds, animalNames);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.animal_list, animalListFragment)
+                .commit();
+
     }
 }
