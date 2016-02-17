@@ -12,6 +12,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 
 /**
@@ -64,7 +67,12 @@ public class AnimalListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View listItem, int position, long id) {
-                ((FragmentActivity) getActivity()).showDetail(position);
+                if (getActivity().getClass() == ViewPagerActivity.class) {
+                    ((ViewPagerActivity) getActivity()).scrollToPage(position);
+                }
+                else {
+                    ((FragmentActivity) getActivity()).showDetail(position);
+                }
             }
         });
 
