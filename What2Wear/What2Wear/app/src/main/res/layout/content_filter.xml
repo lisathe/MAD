@@ -27,19 +27,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Random"
-        android:id="@+id/button"
+        android:id="@+id/random_button"
         android:layout_marginEnd="18dp"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/apply_button" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apply"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/apply_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/color" />
+
+    <com.example.lisa.what2wear.MultiSelectionSpinner
+        android:id="@+id/color"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_below="@+id/colorText"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Colors:"
+        android:id="@+id/colorText"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/random_button"
+        android:layout_alignParentStart="true" />
+
+    <com.example.lisa.what2wear.MultiSelectionSpinner
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_below="@+id/bottomText"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Bottoms:"
+        android:id="@+id/bottomText"
+        android:layout_below="@+id/color"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
