@@ -15,6 +15,7 @@ public class FilterActivity extends AppCompatActivity {
 
     MultiSelectionSpinner spinnerColor;
     MultiSelectionSpinner spinnerBottom;
+    MultiSelectionSpinner spinnerThemes;
 
 
 
@@ -27,6 +28,7 @@ public class FilterActivity extends AppCompatActivity {
 
         spinnerColor=(MultiSelectionSpinner)findViewById(R.id.color);
         spinnerBottom=(MultiSelectionSpinner)findViewById(R.id.bottom);
+        spinnerThemes=(MultiSelectionSpinner)findViewById(R.id.themes);
 
         //Color list
         List<String> colors = new ArrayList<String>();
@@ -49,6 +51,16 @@ public class FilterActivity extends AppCompatActivity {
         bottom.add("Shorts");
         spinnerBottom.setItems(bottom);
 
+
+        //Themes list
+        List<String> themes = new ArrayList<String>();
+        themes.add("Cute");
+        themes.add("Casual");
+        themes.add("Formal");
+        themes.add("Party");
+        themes.add("Vintage");
+        themes.add("Work");
+        spinnerThemes.setItems(themes);
 
 
     }

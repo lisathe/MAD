@@ -48,13 +48,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_below="@+id/colorText"
-        android:layout_alignParentStart="true" />
+        android:layout_alignEnd="@+id/bottom" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Colors:"
+        android:textSize="20dp"
         android:id="@+id/colorText"
         android:layout_marginTop="21dp"
         android:layout_below="@+id/random_button"
@@ -66,16 +67,40 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:layout_below="@+id/bottomText"
-        android:layout_alignParentStart="true" />
+        android:layout_marginBottom="33dp"
+        android:layout_above="@+id/themeText"
+        android:layout_alignEnd="@+id/themes" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Bottoms:"
+        android:textSize="20dp"
         android:id="@+id/bottomText"
-        android:layout_below="@+id/color"
+        android:layout_above="@+id/bottom"
         android:layout_alignParentStart="true" />
+
+    <com.example.lisa.what2wear.MultiSelectionSpinner
+        android:id="@+id/themes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Themes:"
+        android:textSize="20dp"
+        android:id="@+id/themeText"
+        android:layout_above="@+id/themes"
+        android:layout_alignStart="@+id/themes" />
+
+
+
 
 </RelativeLayout>
