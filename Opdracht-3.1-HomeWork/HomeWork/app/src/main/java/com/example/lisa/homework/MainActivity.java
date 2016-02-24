@@ -9,12 +9,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
+    private ArrayAdapter<Assignment> assignmentArrayAdapter;
+    private DataSource datasource;
+
+    public static final String EXTRA_ASSIGNMENT_ID = "extraAssignmentId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +31,27 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listView = (ListView) findViewById(R.id.main_list);
 
+        listView = (ListView) findViewById(R.id.main_list);
         TextView emptyView = (TextView) findViewById(R.id.main_list_empty);
         listView.setEmptyView(emptyView);
+
+        datasource = new DataSource(this);
+        List<Assignment> assignments = datasource.getAllAssignments();
+        assignmentArrayAdapter = new ArrayAdapter<Assignment>(this, android.R.layout.simple_list_item_1, assignments);
+        listView.setAdapter(assignmentArrayAdapter);
+
+        registerForContextMenu(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(EXTRA_ASSIGNMENT_ID, assignmentArrayAdapter.getItem(position).getId());
+                startActivityForResult(intent, 2);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -58,5 +83,34 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateAssignmentListView() {
+        List<Assignment> assignments = datasource.getAllAssignments();
+        assignmentArrayAdapter = new ArrayAdapter<Assignment>(this, android.R.layout.simple_list_item_1, assignments);
+        listView.setAdapter(assignmentArrayAdapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                //Handle data
+                long assignmentId = data.getLongExtra(EXTRA_ASSIGNMENT_ID, -1);
+                if (assignmentId != -1) {
+                    Assignment assignment = datasource.getAssignment(assignmentId);
+                    assignmentArrayAdapter.add(assignment);
+
+                }
+
+
+
+            }
+        }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                updateAssignmentListView();
+            }
+        }
     }
 }
