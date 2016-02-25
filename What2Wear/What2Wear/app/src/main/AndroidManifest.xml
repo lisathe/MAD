@@ -22,5 +22,6 @@
         <activity android:name=".AddToWardrobeActivity" />
         <activity android:name=".ViewWardrobeActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 </manifest>
