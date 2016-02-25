@@ -11,6 +11,12 @@ public class Cloth
     private String info;
     private Bitmap picture;
 
+    //Constructor
+    public Cloth (long id, String info, Bitmap picture){
+        this.id = id;
+        this.info = info;
+        this.picture = picture;
+    }
     public long getId()
     {
         return id;
