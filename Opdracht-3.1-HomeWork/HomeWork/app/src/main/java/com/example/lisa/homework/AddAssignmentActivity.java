@@ -25,11 +25,13 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
 
         assignmentText = (EditText) findViewById(R.id.add_assignment_edit_text);
+        datasource = new DataSource(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 long assignmentId = datasource.createAssignment(assignmentText.getText().toString());
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(MainActivity.EXTRA_ASSIGNMENT_ID, assignmentId);
@@ -37,6 +39,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 finish();
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }
