@@ -10,7 +10,44 @@
     tools:context="com.example.lisa.whattowear.MainActivity">
 
     <TextView
+        android:text="What will you wear today?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textSize="30dp"
+        android:id="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favorite Outfits"
+        android:id="@+id/btn_fav_outfit"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/btn_wardrobe"
+        android:layout_alignStart="@+id/btn_wardrobe">
+
+    </Button>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to wardrobe"
+        android:id="@+id/btn_wardrobe"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+    </Button>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Wardrobe"
+        android:id="@+id/btn_view_wardrobe"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/btn_wardrobe"
+        android:layout_centerHorizontal="true">
+
+    </Button>
+
 </RelativeLayout>
