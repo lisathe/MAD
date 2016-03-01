@@ -58,16 +58,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Picture"
-        android:id="@+id/btn_upload_pic"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="42dp"
-        android:layout_below="@+id/textView4"
-        android:layout_toEndOf="@+id/textView3" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Add to wardrobe"
         android:id="@+id/btn_add_to_wardrobe"
         android:layout_marginBottom="61dp"
@@ -78,7 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_alignTop="@+id/btn_upload_pic"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:src="@drawable/dressicon"
+        android:layout_above="@+id/btn_add_to_wardrobe" />
 
 </RelativeLayout>

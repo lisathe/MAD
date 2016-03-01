@@ -25,13 +25,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddToWardrobe extends AppCompatActivity {
 
     static final int REQUEST_CAMERA = 0;
     static final int SELECT_FILE = 1;
+    private static final String FILE_SUFFIX_JPG = ".jpg";
+    private static final String APP_PICTURE_DIRECTORY = "/WhatToWear";
 
-    Button uploadPicture;
+    private Uri selectedPhotoPath;
+
     Button addToWardrobe;
     ImageView imageView;
 
@@ -42,17 +48,55 @@ public class AddToWardrobe extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        uploadPicture = (Button) findViewById(R.id.btn_upload_pic);
         addToWardrobe = (Button) findViewById(R.id.btn_add_to_wardrobe);
         imageView = (ImageView) findViewById(R.id.imageView);
 
         //Intents
-        uploadPicture.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
             }
         });
+    }
+    private File createImageFile() {
+
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES );
+            storageDir.mkdirs();
+
+
+        File imageFile = null;
+
+        try {
+            imageFile = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    FILE_SUFFIX_JPG,         /* suffix */
+                    storageDir      /* directory */
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return imageFile;
+    }
+
+    private Uri getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return Uri.parse(result);
     }
 
     private void selectImage() {
@@ -64,8 +108,13 @@ public class AddToWardrobe extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Take Photo")) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_CAMERA );
+                    Intent picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                    File photo = createImageFile();
+                    selectedPhotoPath = Uri.parse(photo.getAbsolutePath());
+                    picIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+
+                    startActivityForResult(picIntent, REQUEST_CAMERA );
                 }
                 else if (items[item].equals("Choose from Library")) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -85,26 +134,10 @@ public class AddToWardrobe extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
-                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-                File destination = new File(Environment.getExternalStorageDirectory(),
-                        System.currentTimeMillis() + ".jpg");
-                FileOutputStream fo;
+               setImageView();
+            }
 
-                try {
-                    destination.createNewFile();
-                    fo = new FileOutputStream(destination);
-                    fo.write(bytes.toByteArray());
-                    fo.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                
-                imageView.setImageBitmap(thumbnail);
-            } else if (requestCode == SELECT_FILE) {
+            else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
                 String[] projection = {MediaStore.MediaColumns.DATA};
                 CursorLoader cursorLoader = new CursorLoader(this, selectedImageUri, projection, null, null,
@@ -128,5 +161,13 @@ public class AddToWardrobe extends AppCompatActivity {
                 imageView.setImageBitmap(bm);
             }
         }
+    }
+
+    private void setImageView()
+    {
+        Bitmap pictureBitmap = BitmapResizer.ShrinkBitmap(selectedPhotoPath.toString(),
+                imageView.getWidth(),
+                imageView.getHeight());
+        imageView.setImageBitmap(pictureBitmap);
     }
 }
