@@ -8,8 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView listView;
+    private SerieAdapter adapter;
+    private List<Serie> series;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +25,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        listView = (ListView) findViewById(R.id.listView);
+        series = new ArrayList<Serie>();
+
+        registerForContextMenu(listView);
+
+        adapter = new SerieAdapter(this, R.layout.row_item,series);
+
+        series.add(new Serie("Nya", "2", "Watching","9"));
+        series.add(new Serie("Nyoo", "2", "Watching","9"));
+
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -7,16 +7,15 @@ import android.widget.Spinner;
  */
 public class Serie {
 
-    private String title, ep, status, rating, notes;
+    private String title, ep, status, rating;
 
     //Constructor
-    public Serie(String title, String ep, String status, String rating, String notes)
+    public Serie(String title, String ep, String status, String rating)
     {
         this.title= title;
         this.ep = ep;
         this.status = status;
         this.rating = rating;
-        this.notes = notes;
     }
 
     //Getters
@@ -37,8 +36,5 @@ public class Serie {
         return rating;
     }
 
-    public String getNotes() {
-        return notes;
-    }
 }
 
