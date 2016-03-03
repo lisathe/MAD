@@ -1,5 +1,6 @@
 package com.example.lisa.serietracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -33,13 +35,29 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new SerieAdapter(this, R.layout.row_item,series);
 
-        series.add(new Serie("Nya", "2", "Watching","9"));
-        series.add(new Serie("Nyoo", "2", "Watching","9"));
+        series.add(new Serie("Nya", "2", "Watching"," 9"));
+        series.add(new Serie("Nyoo", "2", "Completed"," 9"));
 
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Create an Intent
+                Intent intent = new Intent(MainActivity.this, SerieDetailsActivity.class);
 
+                Serie clickedItem = (Serie) parent.getItemAtPosition(position);
+                intent.putExtra("title", clickedItem.getTitle());
+                intent.putExtra("status", clickedItem.getStatus());
+                intent.putExtra("ep", clickedItem.getEp());
+                intent.putExtra("rating", clickedItem.getRating());
+
+                //Open the new screen by starting the activity
+                startActivity(intent);
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
