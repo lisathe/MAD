@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Completed"
         android:id="@+id/status"
         android:layout_marginTop="24dp"
@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="ep"
         android:id="@+id/ep"
         android:layout_alignTop="@+id/textView3"
@@ -37,7 +37,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Rating"
         android:id="@+id/rating"
         android:layout_alignTop="@+id/ep"
@@ -55,7 +55,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Status:"
         android:id="@+id/textView2"
         android:layout_alignTop="@+id/status"
@@ -64,7 +64,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Episode:"
         android:id="@+id/textView3"
         android:layout_alignTop="@+id/status"
@@ -74,7 +74,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Rating:"
         android:id="@+id/textView4"
         android:layout_alignTop="@+id/rating"

@@ -1,5 +1,6 @@
 package com.example.lisa.serietracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -90,4 +91,32 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Check if the result code is the right one
+        if (resultCode == Activity.RESULT_OK) {
+            //Check if the request code is correct
+            if (requestCode == 1234) {
+                //Everything's fine, get the values;
+                String title = data.getStringExtra("title");
+                String status = data.getStringExtra("status");
+                String ep = data.getStringExtra("ep");
+                String rating = data.getStringExtra("rating");
+
+
+                //Create a list item from the values
+                Serie newSerie = new Serie(title, ep,status,rating);
+
+                //Add the new item to the adapter;
+                series.add(newSerie);
+
+                //Have the adapter update
+                adapter.notifyDataSetChanged();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

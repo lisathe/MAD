@@ -29,27 +29,53 @@ public class SerieAdapter extends ArrayAdapter<Serie> {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Inflate layout into the View for the Row
-        convertView = inflater.inflate(R.layout.row_item, parent, false);
-
-        //Retrieve ListItem at the position
-        Serie serie = getItem(position);
-
-        //Retrieve all Views of a ListItem
-        TextView title = (TextView) convertView.findViewById(R.id.title);
-        TextView status = (TextView)convertView.findViewById(R.id.status);
-        TextView ep = (TextView)convertView.findViewById(R.id.ep);
-        TextView rating = (TextView) convertView.findViewById(R.id.rating);
-
-
-        //Set the values for this row
-        title.setText(serie.getTitle());
-        status.setText(serie.getStatus());
-        ep.setText(serie.getEp());
-        rating.setText(serie.getRating());
-
-        return convertView;
+        View row = convertView;
+        ViewHolder holder;
+        //Check if the row is new
+        if (row == null) {
+            //Inflate the layout if it didn't exist yet
+            row = inflater.inflate(R.layout.row_item, parent, false);
+            //Create a new view holder instance
+            holder = new ViewHolder(row);
+            //set the holder as a tag so we can get it back later
+            row.setTag(holder);
+        } else {
+            //The row isn't new so we can reuse the view holder
+            holder = (ViewHolder) row.getTag();
+        }
+        //Populate the row
+        holder.populateRow(getItem(position));
+        return row;
     }
+
+
+    class ViewHolder {
+
+        private TextView title, ep, status, rating;
+
+        //Initialize the variables
+        public ViewHolder(View view) {
+
+            title = (TextView) view.findViewById(R.id.title);
+            ep = (TextView) view.findViewById(R.id.ep);
+            status = (TextView)view.findViewById(R.id.status);
+            rating = (TextView)view.findViewById(R.id.rating);
+
+        }
+        //Method to set the values in a row
+        public void populateRow(Serie serie) {
+
+            //Set the title for this row
+            title.setText(serie.getTitle());
+            //Set the episode for this row
+            ep.setText(serie.getEp());
+            //Set the status for this row
+            status.setText((serie.getStatus()));
+            //Set the rating for this row
+            rating.setText(serie.getRating());
+        }
+    }
+
 
 
 
