@@ -8,6 +8,7 @@ import android.widget.Spinner;
 public class Serie {
 
     private String title, ep, status, rating;
+    private long id;
 
     //Constructor
     public Serie(String title, String ep, String status, String rating)
@@ -35,6 +36,16 @@ public class Serie {
     public String getRating() {
         return rating;
     }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    //Setters
+
+    public void setID(long id)
+    {this.id = id;}
 
 }
 

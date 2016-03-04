@@ -17,14 +17,20 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     //Series
     public static final String TABLE_SERIES = "series";
     public static final String COLUMN_SERIES_ID = "serie_id";
-    public static final String COLUMN_SERIE = "serie";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_STATUS = "status";
+    public static final String COLUMN_EP = "ep";
+    public static final String COLUMN_RATING = "rating";
 
     //Create table
     private static final String DATABASE_CREATE_SERIES =
             "CREATE TABLE" + TABLE_SERIES +
                     "(" +
                     COLUMN_SERIES_ID + " integer primary key autoincrement, " +
-                    COLUMN_SERIE + " text not null" +
+                    COLUMN_TITLE + " text not null" +
+                    COLUMN_STATUS+ " text not null" +
+                    COLUMN_EP + " text" +
+                    COLUMN_RATING + " text" +
                     ");";
 
 
