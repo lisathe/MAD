@@ -2,6 +2,7 @@ package com.example.lisa.serietracker;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
-    private SerieAdapter adapter;
-    private List<Serie> series;
+    //private ArrayAdapter<Serie> serieArrayAdapter;
+    private SerieAdapter serieArrayAdapter;
+    private DataSource datasource;
+
+    public static final String EXTRA_SERIE_ID = "extraSerieId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,29 +36,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         listView = (ListView) findViewById(R.id.listView);
-        series = new ArrayList<Serie>();
+
+        datasource = new DataSource(this);
+        List<Serie> series = datasource.getAllSeries();
+        //serieArrayAdapter = new ArrayAdapter<Serie>(this,android.R.layout.simple_list_item_1,series);
+        serieArrayAdapter = new SerieAdapter(this,R.layout.row_item,series);
+        listView.setAdapter(serieArrayAdapter);
 
         registerForContextMenu(listView);
-
-        adapter = new SerieAdapter(this, R.layout.row_item,series);
-
-        series.add(new Serie("Nya", "2", "Watching"," 9"));
-        series.add(new Serie("Nyoo", "2", "Completed"," 9"));
-
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Create an Intent
                 Intent intent = new Intent(MainActivity.this, SerieDetailsActivity.class);
-
-                Serie clickedItem = (Serie) parent.getItemAtPosition(position);
+                intent.putExtra(EXTRA_SERIE_ID, serieArrayAdapter.getItem(position).getId());
+               /* Serie clickedItem = (Serie) parent.getItemAtPosition(position);
                 intent.putExtra("title", clickedItem.getTitle());
                 intent.putExtra("status", clickedItem.getStatus());
                 intent.putExtra("ep", clickedItem.getEp());
-                intent.putExtra("rating", clickedItem.getRating());
+                intent.putExtra("rating", clickedItem.getRating());*/
 
                 //Open the new screen by starting the activity
                 startActivity(intent);
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                Intent intent = new Intent(MainActivity.this, NewSerieActivity.class);
-                startActivityForResult(intent, 1234);
+                startActivity(intent);
             }
         });
     }
@@ -97,26 +100,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Check if the result code is the right one
         if (resultCode == Activity.RESULT_OK) {
+            long serieId = data.getLongExtra(EXTRA_SERIE_ID, -1);
             //Check if the request code is correct
-            if (requestCode == 1234) {
+            if (serieId != -1) {
                 //Everything's fine, get the values;
-                String title = data.getStringExtra("title");
-                String status = data.getStringExtra("status");
-                String ep = data.getStringExtra("ep");
-                String rating = data.getStringExtra("rating");
+
+                Serie serie = datasource.getSerie(serieId);
+                serieArrayAdapter.add(serie);
+                updateSerieListView();
 
 
-                //Create a list item from the values
+
+                /*Create a list item from the values
                 Serie newSerie = new Serie(title, ep,status,rating);
 
                 //Add the new item to the adapter;
-                series.add(newSerie);
+                series.add(newSerie);*/
 
                 //Have the adapter update
-                adapter.notifyDataSetChanged();
+                serieArrayAdapter.notifyDataSetChanged();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void updateSerieListView() {
+        List<Serie> series = datasource.getAllSeries();
+        //serieArrayAdapter = new ArrayAdapter<Serie>(this, android.R.layout.simple_list_item_1, series);
+        serieArrayAdapter = new SerieAdapter(this,R.layout.row_item,series);
+        listView.setAdapter(serieArrayAdapter);
     }
 
 }

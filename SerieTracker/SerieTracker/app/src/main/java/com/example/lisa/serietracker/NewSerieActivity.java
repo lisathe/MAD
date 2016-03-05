@@ -21,6 +21,7 @@ public class NewSerieActivity extends AppCompatActivity {
     private Spinner ratingSpinner, statusSpinner;
     private Button addBtn;
     private EditText title, ep;
+    private DataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class NewSerieActivity extends AppCompatActivity {
         addBtn = (Button) findViewById(R.id.btn_add_serie);
         title = (EditText)findViewById(R.id.edit_title);
         ep = (EditText)findViewById(R.id.edit_ep);
+        dataSource = new DataSource(this);
 
 
         // Create spinner items
@@ -52,16 +54,17 @@ public class NewSerieActivity extends AppCompatActivity {
                 //Check if the title and status spinner have a value
                 if (!TextUtils.isEmpty(title.getText()) && statusSpinner.getSelectedItemPosition() > 0) {
 
+                    long serieId = dataSource.createSerie(title.getText().toString(),statusSpinner.getSelectedItem().toString(),ep.getText().toString(),ratingSpinner.getSelectedItem().toString());
                     //Create a new intent with the data
-                    Intent data = new Intent();
-                    data.putExtra("title", title.getText().toString());
+                    Intent result = new Intent();
+                    result.putExtra(MainActivity.EXTRA_SERIE_ID, serieId);
+                   /* data.putExtra("title", title.getText().toString());
                     data.putExtra("status", statusSpinner.getSelectedItem().toString());
                     data.putExtra("ep", ep.getText().toString());
-                    data.putExtra("rating", ratingSpinner.getSelectedItem().toString());
+                    data.putExtra("rating", ratingSpinner.getSelectedItem().toString());*/
 
                     //Send the result back to the activity
-                    setResult(Activity.RESULT_OK, data);
-
+                    setResult(Activity.RESULT_OK, result);
                     //Finish this activity
                     finish();
                 }

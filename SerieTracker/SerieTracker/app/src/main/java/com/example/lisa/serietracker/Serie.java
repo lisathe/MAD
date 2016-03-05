@@ -11,13 +11,13 @@ public class Serie {
     private long id;
 
     //Constructor
-    public Serie(String title, String ep, String status, String rating)
+    /*public Serie(String title, String ep, String status, String rating)
     {
         this.title= title;
         this.ep = ep;
         this.status = status;
         this.rating = rating;
-    }
+    }*/
 
     //Getters
     public String getTitle()
@@ -44,8 +44,24 @@ public class Serie {
 
     //Setters
 
-    public void setID(long id)
-    {this.id = id;}
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setEp(String ep) {
+        this.ep = ep;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
 }
 

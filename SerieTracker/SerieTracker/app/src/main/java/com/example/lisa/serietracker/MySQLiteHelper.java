@@ -13,7 +13,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     // Database info
     private static final String DATABASE_NAME = "myseriesdatabase.db";
     private static final int DATABASE_VERSION = 1;
-
+    private static final String LOGTAG = "log";
     //Series
     public static final String TABLE_SERIES = "series";
     public static final String COLUMN_SERIES_ID = "serie_id";
@@ -24,12 +24,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     //Create table
     private static final String DATABASE_CREATE_SERIES =
-            "CREATE TABLE" + TABLE_SERIES +
-                    "(" +
+            "CREATE TABLE " + TABLE_SERIES +
+                    " (" +
                     COLUMN_SERIES_ID + " integer primary key autoincrement, " +
-                    COLUMN_TITLE + " text not null" +
-                    COLUMN_STATUS+ " text not null" +
-                    COLUMN_EP + " text" +
+                    COLUMN_TITLE + " text not null, " +
+                    COLUMN_STATUS + " text not null, " +
+                    COLUMN_EP + " text, " +
                     COLUMN_RATING + " text" +
                     ");";
 
@@ -43,6 +43,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase database) {
         // Execute the sql to create the table assignments
         database.execSQL(DATABASE_CREATE_SERIES);
+        Log.i(LOGTAG, "table has been created");
     }
 
     @Override
