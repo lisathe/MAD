@@ -10,31 +10,30 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-
-public class NewSerieActivity extends AppCompatActivity {
-
+public class ModifySerieActivity extends AppCompatActivity {
 
     private Spinner ratingSpinner, statusSpinner;
-    private Button addBtn;
+    private Button btn;
     private EditText title, ep;
     private DataSource dataSource;
+    private Serie serie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_serie);
+        setContentView(R.layout.activity_modify_serie);
 
-        ratingSpinner = (Spinner) findViewById(R.id.rating_spinner);
-        statusSpinner = (Spinner) findViewById(R.id.status_spinner);
-        addBtn = (Button) findViewById(R.id.btn_add_serie);
-        title = (EditText)findViewById(R.id.edit_title);
-        ep = (EditText)findViewById(R.id.edit_ep);
+        ratingSpinner = (Spinner) findViewById(R.id.modify_rating_spinner);
+        statusSpinner = (Spinner) findViewById(R.id.modify_status_spinner);
+        btn = (Button) findViewById(R.id.btn_modify_serie);
+        title = (EditText)findViewById(R.id.modify_title);
+        ep = (EditText)findViewById(R.id.modify_ep);
         dataSource = new DataSource(this);
 
+        long serieId = getIntent().getLongExtra(MainActivity.EXTRA_SERIE_ID, -1);
+        serie = dataSource.getSerie(serieId);
 
         // Create spinner items
         String[] spinnerRatings = {"Please select rating","1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
@@ -48,29 +47,33 @@ public class NewSerieActivity extends AppCompatActivity {
         statusSpinner.setAdapter(statusSpinnerAdapter);
 
         //Handle the button click
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Check if the title and status spinner have a value
                 if (!TextUtils.isEmpty(title.getText()) && statusSpinner.getSelectedItemPosition() > 0) {
 
-                    long serieId = dataSource.createSerie(title.getText().toString(),statusSpinner.getSelectedItem().toString(),ep.getText().toString(),ratingSpinner.getSelectedItem().toString());
-                    //Create a new intent with the data
-                    Intent result = new Intent();
-                    result.putExtra(MainActivity.EXTRA_SERIE_ID, serieId);
-                   /* data.putExtra("title", title.getText().toString());
-                    data.putExtra("status", statusSpinner.getSelectedItem().toString());
-                    data.putExtra("ep", ep.getText().toString());
-                    data.putExtra("rating", ratingSpinner.getSelectedItem().toString());*/
+                    String newTitle = title.getText().toString();
+                    String newStatus =statusSpinner.getSelectedItem().toString();
+                    String newEp =ep.getText().toString();
+                    String newRating =ratingSpinner.getSelectedItem().toString();
 
+                    serie.setTitle(newTitle);
+                    serie.setStatus(newStatus);
+                    serie.setEp(newEp);
+                    serie.setRating(newRating);
+
+                    dataSource.updateSerie(serie);
+                    Toast.makeText(ModifySerieActivity.this,"Serie has been updated", Toast.LENGTH_LONG).show();
+
+                    Intent result = new Intent(ModifySerieActivity.this, MainActivity.class);
                     //Send the result back to the activity
                     setResult(Activity.RESULT_OK, result);
                     //Finish this activity
                     finish();
-                }
-                else{
+                } else {
                     //Give warning to user
-                    Toast.makeText(NewSerieActivity.this, "Please enter a title and select a status", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ModifySerieActivity.this, "Please enter a title and select a status", Toast.LENGTH_LONG).show();
                 }
             }
         });

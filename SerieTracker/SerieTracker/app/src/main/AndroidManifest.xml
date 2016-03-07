@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SerieDetailsActivity" />
-        <activity android:name=".NewSerieActivity"></activity>
+        <activity android:name=".NewSerieActivity" />
+        <activity android:name=".ModifySerieActivity"></activity>
     </application>
 
 </manifest>

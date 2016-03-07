@@ -121,7 +121,6 @@ public class DataSource {
             serie.setStatus(cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_STATUS)));
             serie.setEp(cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_EP)));
             serie.setRating(cursor.getString(cursor.getColumnIndexOrThrow(MySQLiteHelper.COLUMN_RATING)));
-
             return serie;
         } catch(CursorIndexOutOfBoundsException exception) {
             exception.printStackTrace();

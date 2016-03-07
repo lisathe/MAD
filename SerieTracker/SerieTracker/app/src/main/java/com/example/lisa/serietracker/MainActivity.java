@@ -53,11 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 //Create an Intent
                 Intent intent = new Intent(MainActivity.this, SerieDetailsActivity.class);
                 intent.putExtra(EXTRA_SERIE_ID, serieArrayAdapter.getItem(position).getId());
-               /* Serie clickedItem = (Serie) parent.getItemAtPosition(position);
-                intent.putExtra("title", clickedItem.getTitle());
-                intent.putExtra("status", clickedItem.getStatus());
-                intent.putExtra("ep", clickedItem.getEp());
-                intent.putExtra("rating", clickedItem.getRating());*/
 
                 //Open the new screen by starting the activity
                 startActivity(intent);
@@ -101,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Select The Action");
         menu.add(0, v.getId(), 0, "Delete");
+        menu.add(1, v.getId(), 1, "Edit");
     }
 
     @Override
@@ -113,7 +109,16 @@ public class MainActivity extends AppCompatActivity {
             datasource.deleteSerie(serie);
 
             updateSerieListView();
-        } else {
+        }
+        else if (item.getTitle() == "Edit")
+        {
+            Intent intent = new Intent(MainActivity.this, ModifySerieActivity.class);
+            intent.putExtra(EXTRA_SERIE_ID, serieArrayAdapter.getItem(info.position).getId());
+            startActivity(intent);
+            updateSerieListView();
+        }
+
+        else {
             return false;
         }
         return true;
@@ -155,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         //serieArrayAdapter = new ArrayAdapter<Serie>(this, android.R.layout.simple_list_item_1, series);
         serieArrayAdapter = new SerieAdapter(this,R.layout.row_item,series);
         listView.setAdapter(serieArrayAdapter);
+        serieArrayAdapter.notifyDataSetChanged();
     }
 
 }
