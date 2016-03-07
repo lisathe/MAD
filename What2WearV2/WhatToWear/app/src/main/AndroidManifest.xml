@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lisa.what2wear">
+    package="com.example.lisa.whattowear">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,12 +18,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FilterActivity"
-            android:label="@string/title_activity_filter"
+            android:name=".AddToWardrobe"
+            android:label="@string/title_activity_add_to_wardrobe"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddToWardrobeActivity" />
-        <activity android:name=".ViewWardrobeActivity"></activity>
+        <activity
+            android:name=".Wardrobe"
+            android:label="@string/title_activity_wardrobe"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+
 </manifest>

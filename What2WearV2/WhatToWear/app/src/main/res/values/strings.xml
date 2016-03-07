@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WhatToWear</string>
+    <string name="title_activity_add_to_wardrobe">AddToWardrobe</string>
+    <string name="title_activity_wardrobe">Wardrobe</string>
+</resources>
