@@ -47,6 +47,7 @@ public class NewSerieActivity extends AppCompatActivity {
         ratingSpinner.setAdapter(rateSpinnerAdapter);
         statusSpinner.setAdapter(statusSpinnerAdapter);
 
+
         //Handle the button click
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override

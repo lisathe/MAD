@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class ModifySerieActivity extends AppCompatActivity {
 
     private Spinner ratingSpinner, statusSpinner;
@@ -32,6 +34,7 @@ public class ModifySerieActivity extends AppCompatActivity {
         ep = (EditText)findViewById(R.id.modify_ep);
         dataSource = new DataSource(this);
 
+
         long serieId = getIntent().getLongExtra(MainActivity.EXTRA_SERIE_ID, -1);
         serie = dataSource.getSerie(serieId);
 
@@ -45,6 +48,9 @@ public class ModifySerieActivity extends AppCompatActivity {
 
         ratingSpinner.setAdapter(rateSpinnerAdapter);
         statusSpinner.setAdapter(statusSpinnerAdapter);
+
+        title.setText(serie.getTitle().toString());
+        ep.setText(serie.getEp().toString());
 
         //Handle the button click
         btn.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +77,7 @@ public class ModifySerieActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, result);
                     //Finish this activity
                     finish();
+
                 } else {
                     //Give warning to user
                     Toast.makeText(ModifySerieActivity.this, "Please enter a title and select a status", Toast.LENGTH_LONG).show();

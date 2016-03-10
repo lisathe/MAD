@@ -132,7 +132,6 @@ public class DataSource {
         if (!database.isOpen())
             open();
 
-
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SERIES, seriesAllColumns, MySQLiteHelper.COLUMN_SERIES_ID + "=?", new String[] { Long.toString(columnId)}, null, null, null);
 
         cursor.moveToFirst();
