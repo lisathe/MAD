@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Serie Tracker</title>
+         <link rel="stylesheet" href="themes/RedTheme.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <!--link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" /-->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"> </script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"> </script>
+        <!--<script>
+            $(document).ready(function() {
+                var entries = new Array();
+                
+                var entry = new Array();
+                entry.push({ title: "One PAAAUNCHH", episode: 6, rating: 8, status: "In Progress" });
+                entries.push({ fg789rf39: entry });
+                
+                entry = new Array();
+                entry.push({ title: "yeah", episode: 6, rating: 8, status: "Almost Done" });
+                entries.push({ ghtr345y: entry });
+                
+                var jsonString = JSON.stringify(entries);
+                $("#debuugy").text(jsonString);
+                
+                var jsonObject = JSON.parse(jsonString);
+                $("#debuugy").append("<br/><br/>" + jsonObject);
+                
+                $("#debuugy").append("<br/><br/>");
+                
+                var element;
+                $.each(jsonObject, function(key, item) {
+                    var entry2 = item[Object.keys(item)];
+                    element = "Title: " + entry2[0].title + "<br/>";
+                    element += "Episode: " + entry2[0].episode + "<br/>";
+                    element += "Rating: " + entry2[0].rating + "<br/>";
+                    element += "Status: " + entry2[0].status + "<br/>";
+                    
+                    $("#debuugy").append(element + "<br/>");
+                });
+            });
+        </script>-->
+        <script>
+            $(document).on('pagebeforeshow', '#mainPage', function(event) {
+                showOnPage();
+            });
+        </script>
+        <script src = "database.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-theme ="c" id="mainPage">
+            <div data-role="header">
+                <h1>Serie Tracker</h1>
+            </div>
+            
+            
+            
+           <!--<div id="debuugy" style="width: 100%; height: 800px; background-color: #888; color: #fff; padding: 20px"></div>
+            
+            <!-- TO DO: See database.. aka display the bloody items here
+                AAAND before I forget it, add a delete button and.. actually delete items. ( data-icon="delete"? pls? no? :< ) -->
+        <ul data-role="listview" id="items">
+            
+        </ul>
+            <input type="submit" data-inline="true" value="Add" onclick="location.href='addNewSerie.html';" >
+            <input type="submit" data-inline="true" value="Delete All" onclick='localStorage.setItem("serie", ""); window.location.reload();'>
+</div>
+    </body>
+</html>
