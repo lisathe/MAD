@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Serie Tracker</title>
-         <link rel="stylesheet" href="themes/RedTheme.css" />
+        <link rel="stylesheet" href="themes/RedTheme.css" />
         <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css">
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"> </script>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"> </script>
         <script src="database.js"></script>
         
@@ -18,35 +18,34 @@
         </script>
     </head>
     <body>
-    <div data-role="page" data-theme ="c">
+        <div data-role="page" data-theme ="c">
             <div data-role="header">
                 <h1>Serie Tracker</h1>
             </div>
-            
-     <div data-role="main" class="ui-content">
-        
-          <div class="ui-field-contain">
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title">
-              
-            <label for="Episode">Episode:</label>
-            <input type="number" name="ep" id="ep">
-              
-            <label for="Rating">Rating:</label>
-            <input type="number" name="rating" id="rating">
-            
-            <label for="status">Select Status:</label>
-                <select name="status" id="status">
-                    <option value="PlanToWatch">Plan to watch</option>
-                    <option value="Watching">Watching</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Dropped">Dropped</option>
-                    <option value="Onhold">On hold</option>
-                </select>
+
+         <div data-role="main" class="ui-content">
+
+              <div class="ui-field-contain">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title">
+
+                <label for="Episode">Episode:</label>
+                <input type="number" name="ep" id="ep">
+
+                <label for="Rating">Rating:</label>
+                <input type="number" name="rating" id="rating">
+
+                <label for="status">Select Status:</label>
+                    <select name="status" id="status">
+                        <option value="PlanToWatch">Plan to watch</option>
+                        <option value="Watching">Watching</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Dropped">Dropped</option>
+                        <option value="Onhold">On hold</option>
+                    </select>
+              </div>
+              <input type="submit" data-inline="true" value="Submit" onclick="saveEdit();">
           </div>
-          <input type="submit" data-inline="true" value="Submit" onclick="saveEdit();">
-       
-      </div>
-    </div>
+        </div>
     </body>
 </html>

@@ -22,14 +22,13 @@ function add()
     var temp = {};
     temp[randomId] = entry;
     
+    //Push array of new serie info into total series list
     objects.push(temp);
     
     // Store the new list
 	saveObjects(objects);
-	// Reload the page to show the new objects
-    
-    
-	//window.location.reload();
+	
+    // Go back to the index page
     location.href='index.html';
 }
 
@@ -52,7 +51,6 @@ function getObjects(){
 	}else{
 		// Make a new array of objects
 		objects = new Array();
-
 	}
 	return objects;
 }
@@ -62,21 +60,9 @@ function saveObjects(objects){
 	localStorage.setItem("serie", JSON.stringify(objects));
 }
 
-// json
-//id
-//{
-//	title: iets
-//	lol: <3
-//}
-
-// array form
-//[id: [title: iets, lol: <3]]
-
 
 function showOnPage()
-{
-    //localStorage.setItem("serie", "");
-    
+{   
     //Fetch the existing objects
     objects = getObjects();
     
@@ -84,15 +70,14 @@ function showOnPage()
     
     $.each(objects, function(index, item) {
         var randomId = Object.keys(item);
-        var entry2 = item[randomId];
-		element = '<li onclick=getNom("' + randomId + '")>Name: '+ entry2[0].title;
-        element += ' <br/>Status: ' + entry2[0].status;
-        element += ' <br/>Episode: ' +entry2[0].episode;
-        element += ' <br/>Rating: ' +entry2[0].rating+'</li>';
+        var entry = item[randomId];
+		element = '<li onclick=getLink("' + randomId + '")>Name: '+ entry[0].title;
+        element += ' <br/>Status: ' + entry[0].status;
+        element += ' <br/>Episode: ' +entry[0].episode;
+        element += ' <br/>Rating: ' +entry[0].rating+'</li>';
 
 		$('#items').append(element);
 	});
-  
    $('#items').listview();
    $('#items').listview("refresh");
 }
@@ -125,70 +110,35 @@ function saveEdit()
     location.href='index.html';
 }
 
-function getNom (nom)
+function getLink (link)
 {
-    location.href = "editSerie.html?id=" + nom;
+    location.href = "editSerie.html?id=" + link;
 }
 
 function fillInEditForm()
 {
-    var idString = location.href.split("?")[1];
-    var serieId = idString.split("=")[1];
-    
-    /*
-    var objects = getObjects();
-    alert(JSON.stringify(objects));
-    var serie = objects[1][serieId];
-    
-    $('[name=title]').val(serie[0].title);
-    $('[name=status]').val(serie[0].status);
-    $('[name=rating]').val(serie[0].rating);
-    $('[name=ep]').val(serie[0].episode);
-    */
+   //Get serie id from link
+    var serieId = location.href.split("=")[1];
     
     var objects = getObjects();
     $.each(objects, function(index, item) {
         var randomId = Object.keys(item);
         if (randomId == serieId)
         {
-            var entry2 = item[randomId][0];
-            $('[name=title]').val(entry2.title);
-            $('[name=ep]').val(entry2.episode);
-            $('[name=rating]').val(entry2.rating);
-            //$('[name=status]').val(entry2.status);
+            var entry = item[randomId][0];
+            $('[name=title]').val(entry.title);
+            $('[name=ep]').val(entry.episode);
+            $('[name=rating]').val(entry.rating);
             
             var dd = $('[name=status]');
             for (var i = 0; i < dd[0].length; i++) {
-                //alert(dd.options[i].text + " == " + entry2.status);
-                if (dd[0].options[i].text == entry2.status) {
+                if (dd[0].options[i].text == entry.status) {
                     dd[0].selectedIndex = i;
-                    //alert("whoo!: " + dd.options[i].text);
-                    //dd.options[i].prop("selected", 1);
                     break;
                 }
             }
-            
             dd.selectmenu("refresh", true);
         }
 	});
 }
     
-    /*
-    // Clear the list
-	$('#items').find('li').remove(); 
-
-	// Add every object to the objects list 
-	$.each(objects, function(index, item){
-        var entry2 = item[Object.keys(item)];
-		element = 'Name: '+ entry2[0].title;
-        element += ' <br/>Status: ' + entry2[0].status;
-        element += ' <br/>Episode: ' +entry2[0].episode;
-        element += ' <br/>Rating: ' +entry2[0].rating;  
-        alert( entry2[0].title);
-
-		$('#items').append(element);
-	});
-  
-   $('#items').listview();
-   $('#items').listview("refresh");
-   */
